@@ -3,4 +3,6 @@
 
 ## Integrantes
 
+Brayan Cufiño
+
 ## Documentación
