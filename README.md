@@ -1,5 +1,5 @@
 [![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=19621610&assignment_repo_type=AssignmentRepo)
-# Laboratotio conexión MQTT
+# Laboratorio conexión MQTT
 
 ## Integrantes
 
@@ -11,11 +11,13 @@
 
 ### Diagrama de flujo
 
+
+
 ### Sensor de color RGB en Raspberry pi zero 2w por MQTT
 
 - Configuración de los pines GPIO: el sensor TCS3200 usa S0 y S1 para seleccionar la frecuencia de salida (aquí se configura al 100% con HIGH/HIGH), S2 y S3 para seleccionar qué filtro de color está activo (rojo, verde, azul) y OUT proporciona una señal cuadrada cuya frecuencia varía según la intensidad del color.
 
-<img src="sensor.png" alt="Sensor RGB" width="500"/>
+<img src="sensor.png" alt="Sensor RGB" width="300"/>
 
 - Se hace la configuración del MQTT definiendo el Broker, el host, el topic para la publicación y el topic para la suscripción 
 
@@ -39,4 +41,4 @@
         - sensor/color/status: Estados del sistema ("ready", "reading", "stopped")
         - sensor/color/control: Comandos de control (start/stop/calibrate)
 
-- Inicia el bucle principal del programa el cual verifica si hay una solicitud de lectura única (prioritaria), si está en modo continuo, lee y publica constantemente los valores leídos y normalizados en un archivo .json el cual envía por MQTT para ser leído en un flujo de NodeRed. 
+- Inicia el bucle principal del programa el cual verifica si hay una solicitud de lectura única (prioritaria), si está en modo continuo, lee y publica constantemente los valores leídos y normalizados en un archivo .json el cual se envía por MQTT para ser leído en un flujo de NodeRed. 
