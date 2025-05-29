@@ -84,7 +84,7 @@ Funcionamiento Básico
 - Usa DETENER LECTURA para pausar la detección.
 
 
-### sndfjn
+### Script de Python
 <img src="funci-codigo-sensor.png" alt="funci-codigo-sensore" width="400"/>
 
 La imagen muestra una terminal de Linux en una Raspberry Pi ejecutando un script de Python.
