@@ -10,6 +10,9 @@
 ## Documentación
 
 ### Diagrama de flujo
+<img src="diagrama-mqtt.png" alt="diagrama-mqtt" width="350"/>
+
+
 
 
 
@@ -17,7 +20,7 @@
 
 - Configuración de los pines GPIO: el sensor TCS3200 usa S0 y S1 para seleccionar la frecuencia de salida (aquí se configura al 100% con HIGH/HIGH), S2 y S3 para seleccionar qué filtro de color está activo (rojo, verde, azul) y OUT proporciona una señal cuadrada cuya frecuencia varía según la intensidad del color.
 
-<img src="sensor.png" alt="Sensor RGB" width="300"/>
+<img src="sensor.png" alt="Sensor RGB" width="350"/>
 
 - Se hace la configuración del MQTT definiendo el Broker, el host, el topic para la publicación y el topic para la suscripción 
 
@@ -42,3 +45,48 @@
         - sensor/color/control: Comandos de control (start/stop/calibrate)
 
 - Inicia el bucle principal del programa el cual verifica si hay una solicitud de lectura única (prioritaria), si está en modo continuo, lee y publica constantemente los valores leídos y normalizados en un archivo .json el cual se envía por MQTT para ser leído en un flujo de NodeRed. 
+
+### Funcionamiento de mosquitto
+<img src="estado-mosquitto.png" alt="estado-mosquitto" width="400"/>
+
+
+
+La pantalla de terminal muestra el resultado del comando sudo systemctl status mosquitto, el cual verifica el estado del servicio Mosquitto MQTT Broker. La salida indica que el servicio de Mosquitto está activo y ejecutándose (active (running)) desde el 23 de mayo de 2025 a las 19:17:35 -05, lo que confirma que el broker MQTT está funcionando correctamente en la Raspberry Pi.
+
+
+### Node-Conectado
+<img src="node-conectado.png" alt="node-conectado" width="400"/>
+
+La imagen muestra un flujo de trabajo de Node-RED.
+
+Este es un flujo de Node-RED que controla y visualiza datos de un sensor de color RGB TCS3200. Permite calibrar el sensor, iniciar lecturas, procesar los datos (JSON) y mostrarlos en tiempo real mediante medidores, un visualizador de color y gráficos, además de ofrecer herramientas de depuración para monitorear el flujo de información.
+
+### Nodo MQTT
+<img src="broker-node.png" alt="broker-node" width="400"/>
+
+La imagen muestra la ventana de configuración de un nodo MQTT In en Node-RED.
+
+
+Esta configuración permite al nodo MQTT In conectarse a un Broker Local de MQTT. Está configurado para suscribirse a un solo tema llamado sensor/color/status, lo que significa que recibirá mensajes publicados en ese tema. El "QoS" (Quality of Service) está en 0. También se observa una advertencia de que la opción de "Salida" actual está descontinuada, sugiriendo que se debería usar un nuevo modo de detección automática.
+
+### Dashboard-Node
+<img src="dashboard-node.png" alt="dashboard-node" width="400"/>
+
+Es una interfaz para proyectos con sensores de color , útil para identificar o calibrar colores físicos.
+Calibra el sensor usando los botones de blanco/negro.
+
+Funcionamiento Básico
+
+- Pulsa INICIAR LECTURA para detectar colores.
+
+- Observa los valores RGB resultantes.
+
+- Usa DETENER LECTURA para pausar la detección.
+
+
+### sndfjn
+<img src="funci-codigo-sensor.png" alt="funci-codigo-sensore" width="400"/>
+
+La imagen muestra una terminal de Linux en una Raspberry Pi ejecutando un script de Python.
+
+La terminal muestra la ejecución de un script de Python llamado sensor-rgb-node-3.py, el cual es un programa para interactuar con un sensor de color TCS3200. El script presenta una lista de comandos MQTT disponibles para controlar el sensor (iniciar/detener lecturas, lectura única, calibrar blanco/negro). La salida de la terminal muestra el proceso de calibración tanto para el color blanco como para el negro, indicando que las calibraciones fueron guardadas y completadas exitosamente. Al final, muestra  los valores continuos de R, G y B del sensor
